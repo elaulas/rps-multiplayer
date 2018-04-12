@@ -35,9 +35,14 @@ $("#submit").on("click", function(event) {
     Frequency: frequency,
     dateAdded: firebase.database.ServerValue.TIMESTAMP
   })
+
+  $("#trainName").val("");
+  $("#destination").val("");
+  $("#trainTime").val("");
+  $("#frequency").val("");
 });
 
-database.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function(snapshot) {
+database.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function(snapshot, prevChildKey) {
   var sv = snapshot.val();
 
   var trainTimeConvert = moment(sv.Time, 'HH:mm').subtract(1, "years");
@@ -50,10 +55,7 @@ database.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", functi
   
 $('.newTrain').append('<tr><td>' + sv.Name + '</td><td>' + sv.Destination + '</td><td>' + sv.Frequency + '</td><td>' + moment(nextTrain).format('hh:mm') + '</td><td>' + tMinutesTillTrain + '</td></tr>');
 
-$("#trainName").empty();
-$("#destination").empty();
-$("#trainTime").empty();
-$("#frequency").empty();
+
 
 
 
