@@ -40,14 +40,13 @@ $("#submit").on("click", function(event) {
 database.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function(snapshot) {
   var sv = snapshot.val();
 
-  var trainTimeConvert = moment(trainTime, 'HH:mm');
+  var trainTimeConvert = moment(sv.Time, 'HH:mm').subtract(1, "years");
   var currentTime = moment();
   var newTime = moment().diff(moment(trainTimeConvert), 'minutes');
-var tRemainder = newTime % frequency;
-var tMinutesTillTrain = frequency - tRemainder;
-console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
-var nextTrain = moment().add(tMinutesTillTrain, "minutes");
-console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
+  var tRemainder = newTime % sv.Frequency;
+  var tMinutesTillTrain = sv.Frequency - tRemainder;
+  var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+
   
 $('.newTrain').append('<tr><td>' + sv.Name + '</td><td>' + sv.Destination + '</td><td>' + sv.Frequency + '</td><td>' + moment(nextTrain).format('hh:mm') + '</td><td>' + tMinutesTillTrain + '</td></tr>');
 
