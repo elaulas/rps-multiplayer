@@ -1,0 +1,25 @@
+.title {
+    text-align: center;
+}
+
+
+
+li {
+    background-color: blue;
+    margin-top: 10px;
+    text-align: center;
+    padding: 10px;
+    color: white;
+    margin-right: 35px;
+}
+
+li:hover {
+    background-color: white;
+    color: blue;
+    border: 4px solid blue;
+}
+
+.colLeft, .colRight {
+    border: 3px solid blue;
+    margin-top: 10px;
+}
